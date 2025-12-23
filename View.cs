@@ -11,13 +11,14 @@ namespace library_manager_console_project
     {
         public static void DisplayMenu(string menuName, string[] options)
         {
+            Console.Clear();
             Console.WriteLine($"{menuName.ToUpper()}");
             Console.WriteLine("\nVeuillez sélectionner une action à effectuer :\n");
             for (int i = 0; i < options.Length; i++)
             {
                 Console.WriteLine($"{i + 1} - {options[i]}");
             }
-            Console.WriteLine("\nVotre choix : _");
+            Console.Write("\nVotre choix : _");
         }
 
         public static void DisplayPrincipalMenu()
@@ -28,13 +29,13 @@ namespace library_manager_console_project
 
         public static void DisplayManageBookMenu()
         {
-            string[] options = { "Ajouter un nouveau livre", "Afficher tous les livres", "Afficher les livres disponibles", "Rechercher un livre", "Modifier un livre", "Supprimer un livre", "Supprimer un livre", "Retour au menu principal" };
+            string[] options = { "Ajouter un nouveau livre", "Afficher tous les livres", "Afficher les livres disponibles", "Rechercher un livre", "Modifier un livre", "Supprimer un livre", "Retour au menu principal" };
             DisplayMenu("Gestion des livres", options);
         }
 
         public static void DisplayManageMember()
         {
-            string[] options = { "Inscrire un nouveau membre", "Afficher tous les membres", "Rechercher un membre", " Modifier un membre", "Suspendre/Réactiver un compte", "Suspendre/Réactiver un compte", "Afficher l'historique d'un membre", "Retour au menu principal\r\n" };
+            string[] options = { "Inscrire un nouveau membre", "Afficher tous les membres", "Rechercher un membre", " Modifier un membre", "Suspendre/Réactiver un compte", "Afficher l'historique d'un membre", "Retour au menu principal\r\n" };
             DisplayMenu("Gestion des membres", options);
         }
         public static void DisplayManageLoans()
@@ -59,24 +60,30 @@ namespace library_manager_console_project
             string[] options = { "Numéro de membre", "Nom", "Courriel", "Retour" };
             DisplayMenu("Rechercher un membre", options);
         }
+
         public static void DisplayStatistiquesMenu()
         {
             string[] options = { "Livres les plus empruntés", " Membres les plus actifs", "Livres jamais empruntés", "Statistiques générales", "Revenus générés par les amendes", "Taux d'occupation de la bibliothèque", "Exporter un rapport", "Retour au menu principal\r\n" };
             DisplayMenu("Statistiques et rapports", options);
         }
+
         public static void DisplayErrorMessage(string message = "Choix invalide, veuillez rééssayer.")
         {
             Console.WriteLine(message);
             WaitForKeyPress();
         }
+
         public static void WaitForKeyPress(string message = "\nAppuyez sur une touche pour continuer ...")
         {
             Console.WriteLine(message);
             Console.ReadKey(true);
         }
+
         public static void DisplayLeaveMessage(string message = "Merci d'avoir utilisé la bibliothèque, nous espérons vous revoir bientôt!")
         {
+            Console.Clear();
             Console.WriteLine(message);
+            WaitForKeyPress("\nAppuyez sur une touche pour fermer la bibliothèque ...");
         }
     }
 }

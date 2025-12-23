@@ -9,5 +9,6 @@ namespace library_manager_console_project
 {
     internal class Bibliotheque
     {
+
     }
 }
