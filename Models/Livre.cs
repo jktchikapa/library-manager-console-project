@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace library_manager_console_project
+namespace library_manager_console_project.Models
 {
-    internal class View
+    internal class Livre
     {
     }
 }
