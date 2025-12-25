@@ -1,9 +1,11 @@
-﻿using System;
+﻿using library_manager_console_project.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace library_manager_console_project
 {
@@ -51,7 +53,7 @@ namespace library_manager_console_project
 
         public static void DisplaySearchABookMenu()
         {
-            string[] options = { " Titre", "Auteur", "ISBN", "Catégorie", "Retour" };
+            string[] options = { "Titre", "Auteur", "ISBN", "Catégorie", "Retour" };
             DisplayMenu("Rechercher un livre", options);
         }
 
@@ -84,6 +86,49 @@ namespace library_manager_console_project
             Console.Clear();
             Console.WriteLine(message);
             WaitForKeyPress("\nAppuyez sur une touche pour fermer la bibliothèque ...");
+        }
+
+        public static void AskInformationsOfABook(out string title, out string author, out string isbn, out int publicationYear, out string categorie)
+        {
+            title = Utils.ReadANonEmptyInput("Titre : ");
+            author = Utils.ReadANonEmptyInput("Auteur :");
+            isbn = Utils.ReadUniqueISBN(); 
+            publicationYear = Utils.ReadANonEmptyInputAndConvertToInt32("Année de publication: ");
+            categorie = Utils.ReadANonEmptyInput("Catégorie :");
+        }
+
+        public static void AskInformationOfAMember(out string name, out string surname, out string email, out int phoneNumber)
+        {
+            name = Utils.ReadANonEmptyInput("Votre nom : ");
+            surname = Utils.ReadANonEmptyInput("Votre prénom : ");
+            email = Utils.IsValidEmail("Votre email");
+            phoneNumber = Utils.ReadANonEmptyInputAndConvertToInt32("Numéro de téléphone");
+        }
+
+        public static void DisplayAllBooks(List<Livre> books)
+        {
+            Console.Clear();
+            Console.WriteLine("==== Liste des livre =====");
+            if (!Utils.IsNotEmptyList<Livre>("livre", books))
+            {
+                Console.WriteLine("Aucun livre à afficher pour l'instant");
+                WaitForKeyPress("Appuyer sur une touche pour quitter ...");
+            }
+            else
+            {
+                foreach (Livre items in books)
+                {
+                    Console.WriteLine($"-Titre : {items.Title} - Auteur : {items.Author} -  ISBN : {items.ISBN} - Année de publication : {items.PublicationYear} - Catégorie : {items.Categorie} - Nombres d'exemplaires restants : {items.NumberOfAvailableCopies}");
+                }
+                WaitForKeyPress("Appuyer sur une touche pour quitter ...");
+            }
+        }
+        public static void LoansABook(Membre member, Livre book)
+        {
+            if(Utils.IsActiveMember(member) && Utils.IsAvailableBook(book))
+            {
+
+            }
         }
     }
 }

@@ -14,11 +14,11 @@ namespace library_manager_console_project.Models
         public string FirstName { get; set; }
         public string MemberNumber { get; set; }
         public string MemberMail { get; set; }
-        public string MemberNumberPhone { get; set; }
+        public int  MemberNumberPhone { get; set; }
         public DateTime InscriptionDate { get; set; }
         public bool AccountStatus { get; set; }
 
-        public Membre(string name, string firstName, string memberNumber, string memberMail, string memberNumberPhone, bool accountStatus)
+        public Membre(string name, string firstName, string memberNumber, string memberMail, int memberNumberPhone, bool accountStatus)
         {
             Name = name;
             MemberNumber = memberNumber;

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using library_manager_console_project.Models;
+﻿using library_manager_console_project.Models;
+using System.Linq.Expressions;
 
 namespace library_manager_console_project
 {
@@ -38,10 +34,41 @@ namespace library_manager_console_project
             nextFineNumber++;
             return fineNumber;
         }
+
+        public static bool ISBNExists(string isbn)
+        {
+            foreach (Livre book in books) 
+            {
+                if (book.ISBN == isbn)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        public static void AddBook()
+        {
+            View.AskInformationsOfABook(out string title, out string author, out string isbn, out int publicationYear, out string categorie);
+            int numberOfCopies = Utils.ReadANonEmptyInputAndConvertToInt32("Combien d'exemplaires ? ");
+            int numberOfAvalaibleCopie = numberOfCopies;
+            Livre newBook = new Livre(title, author, isbn, publicationYear, categorie, numberOfAvalaibleCopie, numberOfCopies);
+            books.Add(newBook);
+        }
+
+        public static void AddMember()
+        {
+            View.AskInformationOfAMember(out string name, out string surname, out string email, out int phoneNumber);
+            string memberNumber = GenerateNextMemberNumber();
+            bool accountstatus = true;
+            Membre member = new Membre(name, surname, memberNumber, email, phoneNumber, accountstatus);
+            members.Add(member);
+        }
+
         public static void ProcessInput()
         {
             bool stayInMenu = true;
-
             while (stayInMenu)
             {
                 View.DisplayPrincipalMenu();
@@ -87,8 +114,10 @@ namespace library_manager_console_project
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
+                        AddBook();
                         break;
                     case ConsoleKey.D2:
+                        View.DisplayAllBooks(books);
                         break;
                     case ConsoleKey.D3:
                         break;
@@ -98,6 +127,9 @@ namespace library_manager_console_project
                     case ConsoleKey.D5:
                         break;
                     case ConsoleKey.D6:
+                        GenerateNextFineNumber();
+                        GenerateNextLoanNumber();
+                        GenerateNextMemberNumber();
                         break;
                     case ConsoleKey.D7:
                         stayInMenu = false;
@@ -119,12 +151,16 @@ namespace library_manager_console_project
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
+                        Utils.SearchABookByTitle(books);
                         break;
                     case ConsoleKey.D2:
+                        Utils.SearchABookByAuthor(books);
                         break;
                     case ConsoleKey.D3:
+                        Utils.SearchABookByISBN(books);
                         break;
                     case ConsoleKey.D4:
+                        Utils.SearchABookByCategorie(books);
                         break;
                     case ConsoleKey.D5:
                         stayInMenu = false;
@@ -146,6 +182,7 @@ namespace library_manager_console_project
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
+                        AddMember();
                         break;
                     case ConsoleKey.D2:
                         break;
